@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { SchemaRepository } from '@tcglanddev/api-sdk'
+import { SchemaRepository } from '@zengateglobal/api-sdk'
 
 import { schemaRepositoryClient } from '@/lib/api'
 

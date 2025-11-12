@@ -1,6 +1,6 @@
 import {useCallback, useEffect, useMemo, useRef, useState} from "react"
 import type {ColumnDef} from "@tanstack/react-table"
-import type {Users as UsersApi} from "@tcglanddev/api-sdk"
+import type {Users as UsersApi} from "@zengateglobal/api-sdk"
 import {
     IconChevronLeft,
     IconChevronRight,

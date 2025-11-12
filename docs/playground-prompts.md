@@ -40,7 +40,7 @@ Implement full CRUD support for the `{{RESOURCE}}` domain across backend and fro
 
 ### 5. Validation & Builds
 1. Run backend tests: `GOCACHE=$(pwd)/.gocache go test ./...`
-2. Build SDK: `pnpm -F @tcglanddev/api-sdk build`
+2. Build SDK: `pnpm -F @zengateglobal/api-sdk build`
 3. Build admin app: `pnpm -C apps/web-admin build`
 
 **Reminder:** Always prefer existing components/blocks. When something new is required, import and compose shadcn-provided pieces instead of authoring custom UI from scratch.  

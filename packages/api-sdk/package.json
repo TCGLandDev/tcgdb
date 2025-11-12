@@ -1,5 +1,5 @@
 {
-  "name": "@tcglanddev/api-sdk",
+  "name": "@zengateglobal/api-sdk",
   "version": "0.1.0",
   "description": "Palmyra Pro API TypeScript SDK (generated clients + thin HTTP helpers)",
   "private": false,

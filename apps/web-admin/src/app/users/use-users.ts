@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { Users } from '@tcglanddev/api-sdk'
+import { Users } from '@zengateglobal/api-sdk'
 import { usersClient } from '@/lib/api'
 
 export type UsersListQuery = NonNullable<Users.UsersListData['query']>

@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button"
 import { toast } from "sonner"
 import { entitiesClient, schemaRepositoryClient } from "@/lib/api"
-import { Entities, SchemaRepository } from "@tcglanddev/api-sdk"
+import { Entities, SchemaRepository } from "@zengateglobal/api-sdk"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
 // Demo page for an Excel-like JSON entities editor using Glide Data Grid.

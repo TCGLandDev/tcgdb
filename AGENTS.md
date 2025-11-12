@@ -21,7 +21,7 @@
 ### Frontend Build Gate (must run after each FE change)
 - After any change under `apps/web-admin`, `domains/*/fe`, or the SDK in `packages/api-sdk`, build before proceeding and fix any TypeScript errors:
   - Admin app: `pnpm build -C apps/web-admin`
-  - SDK (when contracts or generated clients change): `pnpm -F @tcglanddev/api-sdk build`
+  - SDK (when contracts or generated clients change): `pnpm -F @zengateglobal/api-sdk build`
 - Do not submit changes with failing FE builds. Treat the build as a validation gate similar to `go test` for backend.
 
 ## Coding Style & Contract Conventions

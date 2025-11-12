@@ -3,7 +3,7 @@ import {
   createSchemaRepositoryClient,
   createUsersClient,
   createEntitiesClient,
-} from '@tcglanddev/api-sdk'
+} from '@zengateglobal/api-sdk'
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? '/api/v1'
 

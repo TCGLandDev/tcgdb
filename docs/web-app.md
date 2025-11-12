@@ -31,9 +31,9 @@ commandsUsed:
 - FE-MOD-005 (MUST) Domain-first composition: consume domain exports in `/apps/web-admin` and `/apps/web-pwa`; no cross-domain internal imports.
 - FE-JSON-006 (MUST) JSON payloads camelCase; align form fields and serializers to contracts.
 - FE-TS-008 (MUST) TypeScript-only sources: use `.ts/.tsx` exclusively. Do not introduce `.js/.jsx`; migrate any JS to TS.
-- FE-SDK-009 (MUST) Consume the publishable API SDK `@tcglanddev/api-sdk` from apps. Do not import from `packages/api-sdk/src/generated/*`; those files are internal to the SDK build.
+- FE-SDK-009 (MUST) Consume the publishable API SDK `@zengateglobal/api-sdk` from apps. Do not import from `packages/api-sdk/src/generated/*`; those files are internal to the SDK build.
 - FE-DEP-010 (SHOULD) Prefer the latest stable versions when adding new dependencies and keep existing ones updated regularly; verify compatibility with React 19/Vite 7 toolchain before bumping majors.
-- FE-PKG-007 (MUST) Use the `@tcglanddev` scope for all workspace package names. Mark app packages as `"private": true`; reference internal libs with `workspace:*` ranges.
+- FE-PKG-007 (MUST) Use the `@zengateglobal` scope for all workspace package names. Mark app packages as `"private": true`; reference internal libs with `workspace:*` ranges.
 - FE-UX-011 (MUST) Surface status, success, warning, and error feedback through the shared toast system (`sonner`). Wire toast notifications for optimistic success, validation issues, and fatal errors instead of ad-hoc alerts or inline banners.
 - FE-UI-012 (MUST) Reach for shadcn/ui components and documented blocks before building new UI primitives; only implement custom components when no suitable shadcn composition satisfies the requirement.
 
@@ -70,7 +70,7 @@ commandsUsed:
 
 /platform/ts                    # Shared UI primitives, HTTP client, auth utilities, form helpers
 
-/packages/api-sdk               # Publishable TS SDK wrapping generated clients (ESM), name: @tcglanddev/api-sdk
+/packages/api-sdk               # Publishable TS SDK wrapping generated clients (ESM), name: @zengateglobal/api-sdk
 /apps/web-admin                 # React 19 + Vite admin application shell (routes, layout, theming)
 /apps/web-pwa                   # React 19 + Vite PWA shell (offline‑first, installable)
 ```
@@ -104,13 +104,13 @@ Rules:
 - Providers live under `src/providers` (theme, i18n, query, auth). Wire them once in `src/main.tsx` so the entire app can consume shared context.
 
 ### 2.3 Workspace package naming (scope)
-- Scope all workspace packages with `@tcglanddev`:
-  - `apps/web-admin/package.json`: `"name": "@tcglanddev/web-admin", "private": true`
-  - `apps/web-pwa/package.json`: `"name": "@tcglanddev/web-pwa", "private": true`
-  - Libraries (e.g., `platform/ts`): `"name": "@tcglanddev/platform-ts"`
-- Use `workspace:*` for internal dependencies, e.g. `"@tcglanddev/platform-ts": "workspace:*"`.
+- Scope all workspace packages with `@zengateglobal`:
+  - `apps/web-admin/package.json`: `"name": "@zengateglobal/web-admin", "private": true`
+  - `apps/web-pwa/package.json`: `"name": "@zengateglobal/web-pwa", "private": true`
+  - Libraries (e.g., `platform/ts`): `"name": "@zengateglobal/platform-ts"`
+- Use `workspace:*` for internal dependencies, e.g. `"@zengateglobal/platform-ts": "workspace:*"`.
 - If using a private registry, map the scope in `.npmrc` at repo root:
-  - `@tcglanddev:registry=https://npm.pkg.github.com`
+  - `@zengateglobal:registry=https://npm.pkg.github.com`
 
 ---
 
@@ -122,12 +122,12 @@ Rules:
 - Always reference shared components via `$ref: "./common/..."` so shared TS types are consistent (Pagination, ProblemDetails, IAM, primitives).
 
 Client usage pattern:
-- Use `createFetchClient` exported from `@tcglanddev/api-sdk` to:
+- Use `createFetchClient` exported from `@zengateglobal/api-sdk` to:
   - Inject `Authorization: Bearer <token>` header
   - Handle `ProblemDetails` decoding
   - Emit structured debug logs in dev only
   - Map `429`, `5xx`, and network failures to retry policies used by TanStack Query
-- Import domain namespaces (e.g., `Auth`, `Users`) from `@tcglanddev/api-sdk`; never import directly from `packages/api-sdk/src/generated/*`.
+- Import domain namespaces (e.g., `Auth`, `Users`) from `@zengateglobal/api-sdk`; never import directly from `packages/api-sdk/src/generated/*`.
 
 Run codegen:
 - `pnpm openapi:ts` (uses the config file above)
@@ -212,7 +212,7 @@ Run codegen:
 ## 10) Testing Strategy
 
 - Unit tests: Vitest + React Testing Library colocated under `__tests__` or `tests` next to code in each domain.
-- Integration/mocks: use MSW to mock `/api/v1/...` endpoints; fixtures reflect OpenAPI types from `@tcglanddev/api-sdk` exports.
+- Integration/mocks: use MSW to mock `/api/v1/...` endpoints; fixtures reflect OpenAPI types from `@zengateglobal/api-sdk` exports.
 - E2E: Cypress against the built app with API either mocked via MSW or pointed to a dev backend.
 - Assertions: verify success payloads, pagination metadata, and RFC7807 bodies for error paths.
 
@@ -225,7 +225,7 @@ Prerequisites:
 
 Commands:
 - `pnpm install` — install workspace deps
-- SDK: `pnpm -F @tcglanddev/api-sdk build` (or `pnpm -F @tcglanddev/api-sdk dev` if configured)
+- SDK: `pnpm -F @zengateglobal/api-sdk build` (or `pnpm -F @zengateglobal/api-sdk dev` if configured)
 - Admin: `pnpm dev -C apps/web-admin`, `pnpm build -C apps/web-admin`
 - PWA: `pnpm dev -C apps/web-pwa`, `pnpm build -C apps/web-pwa`
 - Domain tests: `pnpm test -C domains/<domain>/fe`
@@ -250,7 +250,7 @@ Dev server proxy example (Vite): proxy `/api` to backend during dev to avoid COR
   - Precache app shell, fonts, icons; provide an offline fallback route
   - Implement update flow: listen to SW `waiting`/`controllerchange` and show an “Update available” banner
  - SDK package (`packages/api-sdk`):
-   - ESM output with type definitions; semantic versioning; publish to `@tcglanddev` scope
+   - ESM output with type definitions; semantic versioning; publish to `@zengateglobal` scope
    - Consumers: internal apps via `workspace:*`, external apps via private registry per `.npmrc`
 
 ---
@@ -360,7 +360,7 @@ Playbook A1 — Contracts → TS codegen → UI update
   - `pnpm dlx @hey-api/openapi-ts@0.86.11 -i contracts/<domain>.yaml -o packages/api-sdk/src/generated/<domain>`
 - Step 3: Update domain FE code under `domains/<domain>/fe` to use new types; adapt forms and views.
 - Step 4: Verify admin shell compiles: `pnpm build -C apps/web-admin` (and PWA if relevant).
-- Step 4.1: Rebuild the SDK package: `pnpm -F @tcglanddev/api-sdk build` and update app deps if versioned.
+- Step 4.1: Rebuild the SDK package: `pnpm -F @zengateglobal/api-sdk build` and update app deps if versioned.
 - Validation:
   - Type errors resolved in domain FE
   - Runtime calls handle new/changed fields
@@ -378,11 +378,11 @@ Playbook A3 — Enable offline for a route (PWA)
 - Queue mutations via Background Sync and replay on reconnect; invalidate TanStack Query keys.
 - Implement an update banner reacting to SW `waiting` → `skipWaiting` → `controllerchange`.
 
-Playbook A4 — Publish the API SDK (@tcglanddev/api-sdk)
+Playbook A4 — Publish the API SDK (@zengateglobal/api-sdk)
 - Ensure contracts and SDK generated sources are up to date
-- Build the SDK: `pnpm -F @tcglanddev/api-sdk build`
-- Bump version (semver) and publish: `pnpm -F @tcglanddev/api-sdk publish --access public` (or private registry)
-- Validate install from a clean app: `pnpm add @tcglanddev/api-sdk@<version>`
+- Build the SDK: `pnpm -F @zengateglobal/api-sdk build`
+- Bump version (semver) and publish: `pnpm -F @zengateglobal/api-sdk publish --access public` (or private registry)
+- Validate install from a clean app: `pnpm add @zengateglobal/api-sdk@<version>`
 
 ---
 
@@ -395,7 +395,7 @@ Before PR
 - [ ] Two-response policy handled (ProblemDetails surfaced)
 - [ ] Pagination metadata rendered where applicable
 - [ ] No `.js/.jsx` files introduced; TS-only sources
-- [ ] Apps import from `@tcglanddev/api-sdk` (no direct `packages/api-sdk/src/generated/*` imports)
+- [ ] Apps import from `@zengateglobal/api-sdk` (no direct `packages/api-sdk/src/generated/*` imports)
 
 After a contract change
 - [ ] TS codegen updated in `packages/api-sdk/src/generated/<domain>`

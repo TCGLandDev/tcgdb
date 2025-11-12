@@ -31,7 +31,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-import { SchemaRepository } from '@tcglanddev/api-sdk'
+import { SchemaRepository } from '@zengateglobal/api-sdk'
 
 type SchemaVersion = SchemaRepository.SchemaVersion
 

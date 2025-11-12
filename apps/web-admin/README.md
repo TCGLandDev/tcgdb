@@ -1,6 +1,6 @@
 # Admin Web App
 
-React 19 + Vite dashboard shell for ZenGate Global’s Palmyra Pro internal tooling. The app consumes the contract‑driven SDK (`@tcglanddev/api-sdk`), uses shadcn/ui for primitives, and shares providers (theme, auth, i18n, TanStack Query) with the rest of the frontend stack.
+React 19 + Vite dashboard shell for ZenGate Global’s Palmyra Pro internal tooling. The app consumes the contract‑driven SDK (`@zengateglobal/api-sdk`), uses shadcn/ui for primitives, and shares providers (theme, auth, i18n, TanStack Query) with the rest of the frontend stack.
 
 ## Prerequisites
 - Node.js 24.x

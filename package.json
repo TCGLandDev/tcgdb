@@ -1,5 +1,5 @@
 {
-  "name": "@tcglanddev/monorepo",
+  "name": "@zengateglobal/monorepo",
   "private": true,
   "packageManager": "pnpm@10.20.0",
   "engines": {

@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { SchemaCategories } from '@tcglanddev/api-sdk'
+import { SchemaCategories } from '@zengateglobal/api-sdk'
 
 import { schemaCategoriesClient } from '@/lib/api'
 

@@ -1,5 +1,5 @@
 {
-  "name": "@tcglanddev/web-admin",
+  "name": "@zengateglobal/web-admin",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -37,7 +37,7 @@
     "@tailwindcss/vite": "4.1.17",
     "@tanstack/react-query": "5.90.7",
     "@tanstack/react-table": "8.21.3",
-    "@tcglanddev/api-sdk": "workspace:*",
+    "@zengateglobal/api-sdk": "workspace:*",
     "class-variance-authority": "0.7.1",
     "clsx": "2.1.1",
     "i18next": "25.6.1",

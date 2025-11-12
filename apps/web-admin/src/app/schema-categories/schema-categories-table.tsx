@@ -37,7 +37,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-import { SchemaCategories } from '@tcglanddev/api-sdk'
+import { SchemaCategories } from '@zengateglobal/api-sdk'
 
 type SchemaCategory = SchemaCategories.SchemaCategory
 

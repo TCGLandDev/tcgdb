@@ -1,4 +1,4 @@
-# @tcglanddev/api-sdk
+# @zengateglobal/api-sdk
 
 Publishable TypeScript SDK for the Palmyra Pro API. Wraps generated OpenAPI clients and provides a thin HTTP helper for auth and ProblemDetails.
 
@@ -11,13 +11,13 @@ Publishable TypeScript SDK for the Palmyra Pro API. Wraps generated OpenAPI clie
 Install (internal apps via workspace):
 
 ```
-pnpm add @tcglanddev/api-sdk
+pnpm add @zengateglobal/api-sdk
 ```
 
 Create client:
 
 ```ts
-import { createFetchClient } from '@tcglanddev/api-sdk'
+import { createFetchClient } from '@zengateglobal/api-sdk'
 
 const api = createFetchClient({
   baseUrl: import.meta.env.VITE_API_BASE_URL ?? '/api/v1',
@@ -30,14 +30,14 @@ const api = createFetchClient({
 // Example: await api('users')
 
 // Domain helpers (Auth, Users, SchemaCategories, …) are exposed via namespaces:
-// import { Users } from '@tcglanddev/api-sdk'
+// import { Users } from '@zengateglobal/api-sdk'
 // const result = await Users.usersList({ query: { page: 1, pageSize: 20 } })
 ```
 
 ## Build
 
 ```
-pnpm -F @tcglanddev/api-sdk build
+pnpm -F @zengateglobal/api-sdk build
 ```
 
 This will compile sources (including `src/generated`) and emit ESM to `dist/`.
@@ -45,7 +45,7 @@ This will compile sources (including `src/generated`) and emit ESM to `dist/`.
 ## Publish
 
 ```
-pnpm -F @tcglanddev/api-sdk publish --access public
+pnpm -F @zengateglobal/api-sdk publish --access public
 ```
 
-Ensure `.npmrc` maps the `@tcglanddev` scope to your registry.
+Ensure `.npmrc` maps the `@zengateglobal` scope to your registry.

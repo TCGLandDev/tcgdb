@@ -154,7 +154,7 @@ See docs/Project Requirements Document.md for rationale and deeper details.
 - TS client codegen: run `pnpm openapi:ts` (uses `tools/codegen/openapi/ts/openapi-ts.config.ts`). For details, see the “Contracts → TypeScript Codegen” section in `docs/web-app.md`.
 
 - The OpenAPI files are modular by domain and reuse shared components from `/contracts/common/`.
-- Generated Go stubs go under `/generated/go/<domain>`. TypeScript clients are emitted inside the SDK at `packages/api-sdk/src/generated/<domain>` and consumed via the `@tcglanddev/api-sdk` package.
+- Generated Go stubs go under `/generated/go/<domain>`. TypeScript clients are emitted inside the SDK at `packages/api-sdk/src/generated/<domain>` and consumed via the `@zengateglobal/api-sdk` package.
 - Error responses use ProblemDetails (RFC 7807). Collection endpoints use a standardized Pagination model.
 
 New domain highlights:
