@@ -181,7 +181,7 @@ Each `/domains/<domain>/be` follows:
 
 * Use structured logs (zap). No `fmt.Println` in production paths.
 * Configure zap to emit Google Cloud Logging–compatible JSON (severity, message, trace) so logs flow directly into GCL without extra shims.
-* Every error surfaced to HTTP is a **ProblemDetails** with stable `type` URIs (e.g., `"https://tcg.land/problems/validation-error"`). Log full internal error; never leak internals.
+* Every error surfaced to HTTP is a **ProblemDetails** with stable `type` URIs (e.g., `"https://palmyra.pro/problems/validation-error"`). Log full internal error; never leak internals.
 
 ---
 

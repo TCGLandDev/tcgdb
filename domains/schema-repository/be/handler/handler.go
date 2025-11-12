@@ -19,10 +19,10 @@ import (
 )
 
 const (
-	problemTypeValidation              = "https://tcg.land/problems/validation-error"
-	problemTypeNotFound                = "https://tcg.land/problems/not-found"
-	problemTypeConflict                = "https://tcg.land/problems/conflict"
-	problemTypeInternal                = "https://tcg.land/problems/internal-error"
+	problemTypeValidation              = "https://palmyra.pro/problems/validation-error"
+	problemTypeNotFound                = "https://palmyra.pro/problems/not-found"
+	problemTypeConflict                = "https://palmyra.pro/problems/conflict"
+	problemTypeInternal                = "https://palmyra.pro/problems/internal-error"
 	schemaRepositoryBasePath           = "/api/v1/schema-repository/schemas"
 	listOperation            operation = "listSchemaVersions"
 	createOperation          operation = "createSchemaVersion"

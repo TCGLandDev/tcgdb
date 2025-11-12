@@ -12,12 +12,12 @@ func TestExtractClaims(t *testing.T) {
 	tests := []struct {
 		name  string
 		token auth.Token
-		want  TcgLandClaims
+		want  PalmyraClaims
 	}{
 		{
 			"Is admin but is not Vendor",
 			auth.Token{Claims: map[string]interface{}{"isAdmin": true}},
-			TcgLandClaims{
+			PalmyraClaims{
 				IsAdmin:  true,
 				VendorId: nil,
 			},
@@ -25,7 +25,7 @@ func TestExtractClaims(t *testing.T) {
 		{
 			"Is admin and vendor",
 			auth.Token{Claims: map[string]interface{}{"isAdmin": true, "vendorId": vendorId}},
-			TcgLandClaims{
+			PalmyraClaims{
 				IsAdmin:  true,
 				VendorId: &vendorId,
 			},
@@ -33,7 +33,7 @@ func TestExtractClaims(t *testing.T) {
 		{
 			"No admin and vendor",
 			auth.Token{Claims: map[string]interface{}{"isAdmin": false, "vendorId": vendorId}},
-			TcgLandClaims{
+			PalmyraClaims{
 				IsAdmin:  false,
 				VendorId: &vendorId,
 			},
@@ -41,7 +41,7 @@ func TestExtractClaims(t *testing.T) {
 		{
 			"No data in claims",
 			auth.Token{Claims: map[string]interface{}{}},
-			TcgLandClaims{
+			PalmyraClaims{
 				IsAdmin:  false,
 				VendorId: nil,
 			},

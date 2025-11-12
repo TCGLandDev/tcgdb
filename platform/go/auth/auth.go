@@ -15,7 +15,7 @@ import (
 type ctxKey string
 
 const (
-	ctxUserCredentials ctxKey = "TCGLAND_USER_CREDENTIALS"
+	ctxUserCredentials ctxKey = "PALMYRA_USER_CREDENTIALS"
 )
 
 type UserCredentials struct {

@@ -9,7 +9,7 @@ import (
 	"firebase.google.com/go/v4/auth"
 )
 
-type TcgLandClaims struct {
+type PalmyraClaims struct {
 	IsAdmin  bool
 	VendorId *string
 }
@@ -43,10 +43,10 @@ func ExtractJWTToken(r *http.Request) (string, bool) {
 	return strings.TrimSpace(authHeader[len(prefix):]), true
 }
 
-func ExtractClaims(token auth.Token) TcgLandClaims {
+func ExtractClaims(token auth.Token) PalmyraClaims {
 	isAdmin, found := token.Claims["isAdmin"].(bool)
 
-	claims := TcgLandClaims{
+	claims := PalmyraClaims{
 		IsAdmin:  found && isAdmin,
 		VendorId: nil,
 	}

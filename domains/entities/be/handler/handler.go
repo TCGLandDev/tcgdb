@@ -16,10 +16,10 @@ import (
 )
 
 const (
-	problemTypeValidation = "https://tcg.land/problems/validation-error"
-	problemTypeNotFound   = "https://tcg.land/problems/not-found"
-	problemTypeConflict   = "https://tcg.land/problems/conflict"
-	problemTypeInternal   = "https://tcg.land/problems/internal-error"
+	problemTypeValidation = "https://palmyra.pro/problems/validation-error"
+	problemTypeNotFound   = "https://palmyra.pro/problems/not-found"
+	problemTypeConflict   = "https://palmyra.pro/problems/conflict"
+	problemTypeInternal   = "https://palmyra.pro/problems/internal-error"
 )
 
 // Handler wires the entities service to the generated HTTP contract.
