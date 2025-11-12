@@ -22,7 +22,7 @@ const swaggerUITemplate = `<!doctype html>
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>TCG Land API – Swagger UI</title>
+    <title>Palmyra Pro API – Swagger UI</title>
     <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@5/swagger-ui.css" />
     <style>body{margin:0} #swagger-ui{max-width:1400px;margin:0 auto}</style>
   </head>

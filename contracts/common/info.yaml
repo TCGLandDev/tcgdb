@@ -1,9 +1,10 @@
 openapi: 3.0.4
 info:
-  title: TCG Land API
+  title: Palmyra Pro API
   version: v1
   description: >-
-    Contract-first OpenAPI definition for TCG Land. This API is modular by domain.
+    Contract-first OpenAPI definition for Palmyra Pro, ZenGate Global's internal
+    trading card data platform. This API is modular by domain.
     This file provides shared Info and Servers objects for all domain specs.
 servers:
   - url: "/api/v1"

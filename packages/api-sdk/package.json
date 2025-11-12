@@ -1,7 +1,7 @@
 {
   "name": "@tcglanddev/api-sdk",
   "version": "0.1.0",
-  "description": "TCG Land API TypeScript SDK (generated clients + thin HTTP helpers)",
+  "description": "Palmyra Pro API TypeScript SDK (generated clients + thin HTTP helpers)",
   "private": false,
   "type": "module",
   "sideEffects": false,

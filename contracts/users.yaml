@@ -1,6 +1,6 @@
 openapi: 3.0.4
 info:
-  title: TCG Land API
+  title: Palmyra Pro API
   version: v1
   description: >-
     Users domain contract: admin-managed users with listing, detail, update,

@@ -1,6 +1,6 @@
-# TCG Land — TCGDB
+# ZenGate Global — Palmyra Pro SaaS
 
-A contract‑first, domain‑oriented platform for building and maintaining an accurate, continuously updated Trading Card Games database. This repository is the monorepo that will host the OpenAPI contracts, generated SDKs, backend (Go/Chi), and frontend (React 19 + Vite PWA) for TCG Land’s internal data platform.
+A contract‑first, domain‑oriented platform for building and maintaining an accurate, continuously updated Trading Card Games database. This repository is the monorepo that hosts the OpenAPI contracts, generated SDKs, backend (Go/Chi), and frontend (React 19 + Vite PWA) for ZenGate Global’s Palmyra Pro data platform.
 
 This README consolidates the essentials to understand the project, navigate the repository, and contribute effectively.
 
@@ -39,7 +39,7 @@ This README consolidates the essentials to understand the project, navigate the 
 
 ## Overview & Goals
 
-TCG Land operates a hybrid retail-import fulfillment model for trading cards, consolidating items from multiple international providers, validating them, and shipping complete orders. External public databases are often outdated or incorrect. This project builds our own proprietary, accurate, and continuously updated database that spans all TCG games.
+ZenGate Global operates a hybrid retail-import fulfillment model for trading cards, consolidating items from multiple international providers, validating them, and shipping complete orders. External public databases are often outdated or incorrect. This project builds our own proprietary, accurate, and continuously updated database that spans all TCG games.
 
 High‑level goals:
 

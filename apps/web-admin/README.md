@@ -1,6 +1,6 @@
 # Admin Web App
 
-React 19 + Vite dashboard shell for TCG Land’s internal tooling. The app consumes the contract‑driven SDK (`@tcglanddev/api-sdk`), uses shadcn/ui for primitives, and shares providers (theme, auth, i18n, TanStack Query) with the rest of the frontend stack.
+React 19 + Vite dashboard shell for ZenGate Global’s Palmyra Pro internal tooling. The app consumes the contract‑driven SDK (`@tcglanddev/api-sdk`), uses shadcn/ui for primitives, and shares providers (theme, auth, i18n, TanStack Query) with the rest of the frontend stack.
 
 ## Prerequisites
 - Node.js 24.x
@@ -66,4 +66,3 @@ apps/web-admin/
 ## Additional Docs
 - [docs/web-app.md](../../docs/web-app.md) — full frontend guidelines (routing, providers, codegen).
 - [docs/project-requirements-document.md](../../docs/project-requirements-document.md) — product requirements & domain context.
-

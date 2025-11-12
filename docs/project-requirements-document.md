@@ -2,7 +2,7 @@
 
 ## Overview & Goals
 
-TCG Land is an e-commerce company specializing in trading cards, operating under a hybrid retail-import fulfillment
+ZenGate Global is an e-commerce company specializing in trading cards, operating under a hybrid retail-import fulfillment
 model. We source cards from multiple international providers, consolidate and verify them, and ship complete, validated
 orders to customers.
 

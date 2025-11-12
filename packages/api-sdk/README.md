@@ -1,6 +1,6 @@
 # @tcglanddev/api-sdk
 
-Publishable TypeScript SDK for the TCG Land API. Wraps generated OpenAPI clients and provides a thin HTTP helper for auth and ProblemDetails.
+Publishable TypeScript SDK for the Palmyra Pro API. Wraps generated OpenAPI clients and provides a thin HTTP helper for auth and ProblemDetails.
 
 - ESM output, TypeScript types
 - Generated clients are emitted into `packages/api-sdk/src/generated/<domain>` by the codegen step
