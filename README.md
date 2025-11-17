@@ -195,9 +195,13 @@ Follow ShadCN dashboard patterns and Tailwind conventions. Ensure accessibility 
 - Go 1.25+ (for backend)
 - Bazel 8 (planned; not required until build rules are introduced)
 
+### Fresh Frontend Build
+
+Run `pnpm run frontend:bootstrap` to wipe stale artifacts (via the clean script), reinstall dependencies, and rebuild every workspace package so the React admin app and SDK outputs exist before starting the dev server.
+
 ### Current status
 
-This repository currently emphasizes documentation and contract‑first planning. As domains and contracts are added, code generation and app scaffolding will be introduced alongside Bazel build targets.
+This repository currently emphasizes documentation and contract-first planning. As domains and contracts are added, code generation and app scaffolding will be introduced alongside Bazel build targets.
 
 ### Running the API server
 

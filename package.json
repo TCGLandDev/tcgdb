@@ -12,7 +12,9 @@
     "lint": "pnpm biome lint .",
     "check": "pnpm biome check .",
     "lint:biome": "pnpm biome lint .",
-    "format:biome": "pnpm biome format --write ."
+    "format:biome": "pnpm biome format --write .",
+    "clean": "./tools/scripts/clean-workspace.sh",
+    "frontend:bootstrap": "pnpm run clean && pnpm install && pnpm -r run build"
   },
   "devDependencies": {
     "@biomejs/biome": "2.3.5"
