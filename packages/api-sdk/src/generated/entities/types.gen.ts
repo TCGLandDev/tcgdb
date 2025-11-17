@@ -9,6 +9,7 @@ export type ClientOptions = {
  */
 export type EntityDocument = {
     entityId: PrimitivesUuid;
+    entityVersion: PrimitivesSemanticVersion;
     schemaId: PrimitivesUuid;
     schemaVersion: PrimitivesSemanticVersion;
     /**
@@ -18,12 +19,14 @@ export type EntityDocument = {
         [key: string]: unknown;
     };
     createdAt: PrimitivesTimestamp;
-    updatedAt: PrimitivesTimestamp;
-    deletedAt?: PrimitivesTimestamp | null;
     /**
      * Indicates whether this is the active record version.
      */
     isActive: boolean;
+    /**
+     * Logical delete flag; true when this document version should be hidden from default queries.
+     */
+    isSoftDeleted: boolean;
 };
 
 export type CreateEntityDocumentRequest = {

@@ -35,13 +35,13 @@ var (
 // Document represents an entity record enriched for API rendering.
 type Document struct {
 	EntityID      uuid.UUID
+	EntityVersion persistence.SemanticVersion
 	SchemaID      uuid.UUID
 	SchemaVersion persistence.SemanticVersion
 	Payload       map[string]interface{}
 	CreatedAt     time.Time
-	UpdatedAt     time.Time
-	DeletedAt     *time.Time
 	IsActive      bool
+	IsSoftDeleted bool
 }
 
 // ListResult contains paginated documents and metadata.
@@ -219,13 +219,13 @@ func mapRecord(record persistence.EntityRecord) (Document, error) {
 
 	return Document{
 		EntityID:      record.EntityID,
+		EntityVersion: record.EntityVersion,
 		SchemaID:      record.SchemaID,
 		SchemaVersion: record.SchemaVersion,
 		Payload:       payload,
 		CreatedAt:     record.CreatedAt,
-		UpdatedAt:     record.UpdatedAt,
-		DeletedAt:     record.DeletedAt,
 		IsActive:      record.IsActive,
+		IsSoftDeleted: record.IsSoftDeleted,
 	}, nil
 }
 
@@ -244,8 +244,6 @@ func normalizeSort(sort string) (string, string) {
 	}
 
 	switch field {
-	case "updatedAt":
-		return "updated_at", order
 	case "slug":
 		return "slug", order
 	case "createdAt":
