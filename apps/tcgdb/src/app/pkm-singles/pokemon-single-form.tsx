@@ -12,6 +12,7 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import {
 	type PokemonSingleFormValues,
@@ -423,13 +424,15 @@ export function PokemonSingleForm({
 						)}
 					/>
 				</div>
-				<div className="space-y-4">
-					<div>
-						<FormLabel>Legalities</FormLabel>
-						<p className="text-sm text-muted-foreground">
-							Map of format → status that we convert into the schema object.
-						</p>
-					</div>
+		<div className="space-y-4">
+			<div>
+				<Label className="text-sm font-medium text-foreground">
+					Legalities
+				</Label>
+				<p className="text-sm text-muted-foreground">
+					Map of format → status that we convert into the schema object.
+				</p>
+			</div>
 					<div className="flex flex-col gap-4">
 						{legalityFields.map((field, index) => (
 							<div key={field.id} className="flex flex-col gap-2 md:flex-row">
@@ -476,13 +479,13 @@ export function PokemonSingleForm({
 						</Button>
 					</div>
 				</div>
-				<div>
-					<FormLabel>Notes</FormLabel>
-					<Textarea
-						disabled
-						value="Additional payload fields can be added once the schema expands."
-					/>
-				</div>
+		<div>
+			<Label className="text-sm font-medium text-foreground">Notes</Label>
+			<Textarea
+				disabled
+				value="Additional payload fields can be added once the schema expands."
+			/>
+		</div>
 				<div className="flex justify-end">
 					<Button type="submit" disabled={isSubmitting}>
 						{isSubmitting ? "Saving…" : submitLabel}
