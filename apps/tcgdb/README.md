@@ -69,4 +69,4 @@ apps/web-admin/
 ## Additional Docs
 - [docs/web-app.md](../../docs/web-app.md) — full frontend guidelines (routing, providers, codegen).
 - [docs/project-requirements-document.md](../../docs/project-requirements-document.md) — product requirements & domain context.
-- [TCGDB schema snapshots](../../docs/persistence-layer/tcgdb-schemas/README.md) — normalized entity schemas mirrored from the upstream data model for reference.
+- [TCGDB schema snapshots](../../docs/tcgdb/schemas/README.md) — normalized entity schemas mirrored from the upstream data model for reference.
