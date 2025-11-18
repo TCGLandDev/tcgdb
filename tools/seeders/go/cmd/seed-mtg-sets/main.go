@@ -44,8 +44,22 @@ func main() {
 		DatabaseURL: *databaseURL,
 		Concurrency: *concurrency,
 		KeyFunc:     seed.MTGSetKey,
-		Namespace:   namespace,
-		Logger:      logger,
+		Mutate: func(m map[string]any) error {
+			allowed := map[string]struct{}{
+				"id":               {},
+				"name":             {},
+				"path":             {},
+				"numberCardsInSet": {},
+			}
+			for k := range m {
+				if _, ok := allowed[k]; !ok {
+					delete(m, k)
+				}
+			}
+			return nil
+		},
+		Namespace: namespace,
+		Logger:    logger,
 	}); err != nil {
 		logger.Fatal("seed failed", zap.Error(err))
 	}
