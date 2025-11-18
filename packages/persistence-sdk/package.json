@@ -26,12 +26,15 @@
 		"format": "pnpm biome format --write .",
 		"lint": "pnpm biome lint .",
 		"check": "pnpm biome check .",
+		"test:offline-sqlite": "vitest run src/providers/offline-sqlite/offline-sqlite.integration.test.ts",
 		"prepublishOnly": "pnpm run build"
 	},
 	"dependencies": {
+		"@sqlite.org/sqlite-wasm": "3.51.1-build1",
 		"@zengateglobal/api-sdk": "workspace:*"
 	},
 	"devDependencies": {
-		"typescript": "~5.9.3"
+		"typescript": "~5.9.3",
+		"vitest": "^2.1.9"
 	}
 }
