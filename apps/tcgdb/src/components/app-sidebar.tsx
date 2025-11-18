@@ -41,14 +41,14 @@ const data = {
 			title: "Pokémon Schemas",
 			icon: IconDatabase,
 			children: [
-				{ title: "pkm_normalized_set", url: "/pkm/sets" },
-				{ title: "pkm_normalized_card", url: "/pkm/singles" },
+				{ title: "pkm_sets", url: "/pkm/sets" },
+				{ title: "pkm_cards", url: "/pkm/singles" },
 			],
 		},
 		{
 			title: "Magic Schemas",
 			icon: IconDatabase,
-			children: [{ title: "mtg_normalized_set", url: "/mtg/sets" }],
+			children: [{ title: "mtg_sets", url: "/mtg/sets" }],
 		},
 	],
 	navSecondary: [

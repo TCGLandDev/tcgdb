@@ -4,7 +4,7 @@ import { z } from "zod";
 
 import { getPersistenceClient, type PaginationQuery } from "@/lib/persistence";
 
-export const POKEMON_SETS_TABLE = "pkm_normalized_set";
+export const POKEMON_SETS_TABLE = "pkm_sets";
 
 export interface PokemonSetPayload {
 	id: string;

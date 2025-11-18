@@ -21,14 +21,14 @@ export default function Page() {
 	const tiles = [
 		{
 			title: "Pokémon Sets",
-			description: "Normalized records from pkm_normalized_set.schema.json",
+			description: "Normalized records from pkm_sets.schema.json",
 			total: pokemonSetsStats.data?.totalItems ?? 0,
 			actionLabel: "Manage sets",
 			onClick: () => navigate("/pkm/sets"),
 		},
 		{
 			title: "Pokémon Singles",
-			description: "Card inventory driven by pkm_normalized_card.schema.json",
+			description: "Card inventory driven by pkm_cards.schema.json",
 			total: pokemonSinglesStats.data?.totalItems ?? 0,
 			actionLabel: "Manage singles",
 			onClick: () => navigate("/pkm/singles"),

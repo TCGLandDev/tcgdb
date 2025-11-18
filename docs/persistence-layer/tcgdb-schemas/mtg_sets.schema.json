@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tcg.land/schemas/products/mtg_sets.schema.json",
+  "title": "MTG Normalized Set",
+  "description": "Schema describing a normalized Magic: The Gathering set record.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Stable identifier for the set."
+    },
+    "name": {
+      "type": "string",
+      "description": "Human friendly set name."
+    },
+    "path": {
+      "type": "string",
+      "description": "Relative URL path used inside TCG.land."
+    },
+    "numberCardsInSet": {
+      "type": "integer",
+      "description": "Official number of cards printed in the physical set."
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "path",
+    "numberCardsInSet"
+  ]
+}

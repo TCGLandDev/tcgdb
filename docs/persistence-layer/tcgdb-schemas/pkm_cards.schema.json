@@ -1,0 +1,317 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tcg.land/schemas/products/pkm_cards.schema.json",
+  "title": "PKM Normalized Card",
+  "description": "Schema describing a normalized Pokémon single (card record).",
+  "type": "object",
+  "additionalProperties": false,
+  "$defs": {
+    "resistance": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "Energy or typing associated with the resistance modifier."
+        },
+        "value": {
+          "type": "string",
+          "description": "Resistance modifier text such as -20."
+        }
+      },
+      "required": ["type", "value"]
+    },
+    "weakness": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "Energy or typing associated with the weakness modifier."
+        },
+        "value": {
+          "type": "string",
+          "description": "Weakness modifier text such as ×2."
+        }
+      },
+      "required": ["type", "value"]
+    },
+    "ability": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Displayed ability name."
+        },
+        "text": {
+          "type": "string",
+          "description": "Ability rules text."
+        },
+        "type": {
+          "type": "string",
+          "description": "Ability classification (e.g., Ability, Ancient Trait)."
+        }
+      },
+      "required": ["name", "text", "type"]
+    },
+    "attack": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "convertedEnergyCost": {
+          "type": "integer",
+          "description": "Total number of energies required."
+        },
+        "cost": {
+          "type": "array",
+          "description": "Energy symbols required for the attack.",
+          "items": {
+            "type": "string",
+            "enum": [
+              "Colorless",
+              "Water",
+              "Metal",
+              "Lightning",
+              "Fairy",
+              "Psychic",
+              "Darkness",
+              "Fire",
+              "Fighting",
+              "Grass",
+              "Free"
+            ]
+          }
+        },
+        "damage": {
+          "type": "string",
+          "description": "Damage string as printed on the card."
+        },
+        "name": {
+          "type": "string",
+          "description": "Attack name."
+        },
+        "text": {
+          "type": "string",
+          "description": "Attack rules text."
+        }
+      },
+      "required": [
+        "convertedEnergyCost",
+        "cost",
+        "damage",
+        "name",
+        "text"
+      ]
+    },
+    "ancientTrait": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Ancient trait name."
+        },
+        "text": {
+          "type": "string",
+          "description": "Ancient trait description."
+        }
+      },
+      "required": ["name", "text"]
+    },
+    "images": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "large": {
+          "type": "string",
+          "description": "Large image URL."
+        },
+        "small": {
+          "type": "string",
+          "description": "Small image URL."
+        }
+      },
+      "required": ["large", "small"]
+    }
+  },
+  "properties": {
+    "tcgLandPublicId": {
+      "type": "string",
+      "description": "Public identifier exposed to clients."
+    },
+    "oracleId": {
+      "type": "string",
+      "description": "Identifier tying multiple finishes or languages together."
+    },
+    "sId": {
+      "type": "string",
+      "description": "Identifier of the parent Pokémon set."
+    },
+    "cId": {
+      "type": "string",
+      "description": "Identifier within the normalized set."
+    },
+    "lang": {
+      "type": "string",
+      "description": "Language/locale code for the card."
+    },
+    "path": {
+      "type": "string",
+      "description": "Relative path for the card resource."
+    },
+    "abilities": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ability"
+      }
+    },
+    "ancientTrait": {
+      "$ref": "#/$defs/ancientTrait"
+    },
+    "artist": {
+      "type": "string",
+      "description": "Illustrator credited on the card."
+    },
+    "attacks": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/attack"
+      }
+    },
+    "convertedRetreatCost": {
+      "type": "integer",
+      "description": "Number of energies required to retreat."
+    },
+    "evolvesFrom": {
+      "type": "string",
+      "description": "Name of the Pokémon this card evolves from."
+    },
+    "evolvesTo": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "flavorText": {
+      "type": "string",
+      "description": "Flavor text shown on the card."
+    },
+    "hp": {
+      "type": "string",
+      "description": "Hit points as printed (string to allow modifiers)."
+    },
+    "images": {
+      "$ref": "#/$defs/images"
+    },
+    "legalities": {
+      "type": "object",
+      "description": "Map of format name to legality string.",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "level": {
+      "type": "string",
+      "description": "Printed level."
+    },
+    "name": {
+      "type": "string",
+      "description": "Card name."
+    },
+    "nationalPokedexNumbers": {
+      "type": "array",
+      "items": {
+        "type": "integer",
+        "minimum": 0
+      }
+    },
+    "number": {
+      "type": "string",
+      "description": "Collector number."
+    },
+    "rarity": {
+      "type": "string",
+      "description": "Rarity printed on the card."
+    },
+    "regulationMark": {
+      "type": "string",
+      "description": "Regulation mark (E, F, G, etc.)."
+    },
+    "resistances": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/resistance"
+      }
+    },
+    "retreatCost": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "Colorless",
+          "Water",
+          "Metal",
+          "Lightning",
+          "Fairy",
+          "Psychic",
+          "Darkness",
+          "Fire",
+          "Fighting",
+          "Grass",
+          "Free"
+        ]
+      }
+    },
+    "rules": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "subtypes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "supertype": {
+      "type": "string",
+      "description": "Top-level classification (e.g., Pokémon, Trainer)."
+    },
+    "types": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "weaknesses": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/weakness"
+      }
+    },
+    "tcgPlayerIds": {
+      "type": "array",
+      "description": "TCGplayer identifiers for this card across finishes.",
+      "items": {
+        "type": "integer",
+        "minimum": 0
+      }
+    }
+  },
+  "required": [
+    "tcgLandPublicId",
+    "oracleId",
+    "sId",
+    "cId",
+    "lang",
+    "path",
+    "images",
+    "legalities",
+    "name",
+    "number",
+    "supertype",
+    "tcgPlayerIds"
+  ]
+}

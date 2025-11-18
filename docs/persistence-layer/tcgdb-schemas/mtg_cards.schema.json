@@ -1,0 +1,198 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tcg.land/schemas/products/mtg_cards.schema.json",
+  "title": "MTG Normalized Card",
+  "description": "Schema describing a normalized Magic: The Gathering single (card record).",
+  "type": "object",
+  "additionalProperties": false,
+  "$defs": {
+    "images": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "s": {
+          "type": "integer",
+          "description": "Index into strLookUp that stores the small image URL."
+        },
+        "m": {
+          "type": "integer",
+          "description": "Index into strLookUp that stores the medium image URL."
+        },
+        "l": {
+          "type": "integer",
+          "description": "Index into strLookUp that stores the large image URL."
+        }
+      }
+    },
+    "split": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "integer",
+          "description": "Index into strLookUp for the card face name."
+        },
+        "fName": {
+          "type": "integer",
+          "description": "Index into strLookUp for the printed flavor name."
+        },
+        "tLine": {
+          "type": "integer",
+          "description": "Index into strLookUp for the printed type line."
+        },
+        "txt": {
+          "type": "integer",
+          "description": "Index into strLookUp for the oracle or printed text."
+        },
+        "fTxt": {
+          "type": "integer",
+          "description": "Index into strLookUp for the flavor text."
+        }
+      },
+      "required": ["name"]
+    },
+    "finish": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "tcgpId": {
+          "type": "integer",
+          "description": "Optional index referencing tcgpIdsLookUp for this finish."
+        },
+        "scryfallId": {
+          "type": "integer",
+          "description": "Scryfall identifier for the finish-specific record."
+        },
+        "faceAImgs": {
+          "$ref": "#/$defs/images"
+        },
+        "faceBImgs": {
+          "$ref": "#/$defs/images"
+        }
+      },
+      "required": ["scryfallId"]
+    },
+    "language": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "splitsA": {
+          "type": "array",
+          "description": "Front-face text fragments in this language.",
+          "items": {
+            "$ref": "#/$defs/split"
+          }
+        },
+        "splitsB": {
+          "type": "array",
+          "description": "Back-face text fragments in this language.",
+          "items": {
+            "$ref": "#/$defs/split"
+          }
+        },
+        "finishes": {
+          "type": "object",
+          "description": "Finish metadata keyed by nonfoil, foil, etched, etc.",
+          "propertyNames": {
+            "enum": ["nonfoil", "foil", "etched"]
+          },
+          "additionalProperties": {
+            "$ref": "#/$defs/finish"
+          }
+        },
+        "path": {
+          "type": "string",
+          "description": "Language specific media path."
+        },
+        "imgStatus": {
+          "type": "string",
+          "description": "Image resolution status reported by Scryfall.",
+          "enum": ["lowres", "highres_scan", "placeholder", "missing"]
+        }
+      },
+      "required": ["splitsA", "finishes", "path", "imgStatus"]
+    }
+  },
+  "properties": {
+    "sId": {
+      "type": "string",
+      "description": "Identifier of the parent MTG normalized set."
+    },
+    "cId": {
+      "type": "string",
+      "description": "Identifier for the card within the normalized set."
+    },
+    "oracleId": {
+      "type": "string",
+      "description": "Oracle identifier used to tie related printings."
+    },
+    "oracleName": {
+      "type": "string",
+      "description": "Oracle name for the card."
+    },
+    "layout": {
+      "type": "string",
+      "description": "Layout identifier per Scryfall (transform, split, modal_dfc, etc.)."
+    },
+    "langs": {
+      "type": "object",
+      "description": "Per-language localized data keyed by ISO language code.",
+      "additionalProperties": {
+        "$ref": "#/$defs/language"
+      },
+      "minProperties": 1
+    },
+    "rarity": {
+      "type": "string",
+      "description": "Card rarity."
+    },
+    "releasedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Release timestamp for this printing."
+    },
+    "strLookUp": {
+      "type": "array",
+      "description": "Lookup table containing localized strings.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "tcgpIdsLookUp": {
+      "type": "array",
+      "description": "Lookup table that stores indexed TCGPlayer identifiers.",
+      "items": {
+        "type": "integer",
+        "minimum": 0
+      }
+    },
+    "legalities": {
+      "type": "object",
+      "description": "Map of format name to legality value.",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "oversized": {
+      "type": "boolean",
+      "description": "True when the printing is oversized."
+    },
+    "promo": {
+      "type": "boolean",
+      "description": "True when the printing is promotional."
+    }
+  },
+  "required": [
+    "sId",
+    "cId",
+    "oracleId",
+    "oracleName",
+    "layout",
+    "langs",
+    "rarity",
+    "releasedAt",
+    "legalities",
+    "oversized",
+    "promo"
+  ]
+}

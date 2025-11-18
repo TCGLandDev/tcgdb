@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tcg.land/schemas/products/pkm_sets.schema.json",
+  "title": "PKM Normalized Set",
+  "description": "Schema describing a normalized Pokémon set record.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Stable identifier for the set."
+    },
+    "name": {
+      "type": "string",
+      "description": "Human friendly set name."
+    },
+    "path": {
+      "type": "string",
+      "description": "Relative URL path for the set."
+    },
+    "series": {
+      "type": "string",
+      "description": "Series the set belongs to."
+    },
+    "printedTotal": {
+      "type": "integer",
+      "description": "Number of cards printed in the physical release."
+    },
+    "legalities": {
+      "type": "array",
+      "description": "List of formats where the set is legal.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "releaseDate": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Release date for the set."
+    },
+    "imgSymbol": {
+      "type": "string",
+      "description": "URL or storage reference for the set symbol."
+    },
+    "imgLogo": {
+      "type": "string",
+      "description": "URL or storage reference for the set logo."
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "path",
+    "series",
+    "printedTotal",
+    "legalities",
+    "releaseDate",
+    "imgSymbol",
+    "imgLogo"
+  ]
+}

@@ -4,7 +4,7 @@ import { z } from "zod";
 
 import { getPersistenceClient, type PaginationQuery } from "@/lib/persistence";
 
-export const MTG_SETS_TABLE = "mtg_normalized_set";
+export const MTG_SETS_TABLE = "mtg_sets";
 
 export interface MtgSetPayload {
 	id: string;

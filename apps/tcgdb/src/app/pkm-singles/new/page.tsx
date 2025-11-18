@@ -51,7 +51,7 @@ export default function PokemonSinglesCreatePage() {
 				<CardHeader>
 					<CardTitle>Card details</CardTitle>
 					<CardDescription>
-						All inputs map to the `/products/pkm_normalized_card` schema.
+						All inputs map to the `/products/pkm_cards` schema.
 					</CardDescription>
 				</CardHeader>
 				<CardContent>
