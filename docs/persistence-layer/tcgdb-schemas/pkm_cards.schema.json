@@ -6,17 +6,32 @@
   "type": "object",
   "additionalProperties": false,
   "$defs": {
-    "typeValue": {
+    "resistance": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
         "type": {
           "type": "string",
-          "description": "Energy or typing associated with the modifier."
+          "description": "Energy or typing associated with the resistance modifier."
         },
         "value": {
           "type": "string",
-          "description": "Modifier text such as +10 or -20."
+          "description": "Resistance modifier text such as -20."
+        }
+      },
+      "required": ["type", "value"]
+    },
+    "weakness": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "Energy or typing associated with the weakness modifier."
+        },
+        "value": {
+          "type": "string",
+          "description": "Weakness modifier text such as ×2."
         }
       },
       "required": ["type", "value"]
@@ -226,7 +241,7 @@
     "resistances": {
       "type": "array",
       "items": {
-        "$ref": "#/$defs/typeValue"
+        "$ref": "#/$defs/resistance"
       }
     },
     "retreatCost": {
@@ -273,7 +288,7 @@
     "weaknesses": {
       "type": "array",
       "items": {
-        "$ref": "#/$defs/typeValue"
+        "$ref": "#/$defs/weakness"
       }
     },
     "tcgPlayerIds": {
