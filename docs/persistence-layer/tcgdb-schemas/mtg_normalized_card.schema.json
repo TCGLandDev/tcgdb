@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://tcg.land/schemas/products/mtg_normalized_card.schema.json",
+  "$id": "https://tcg.land/schemas/products/mtg_cards.schema.json",
   "title": "MTG Normalized Card",
   "description": "Schema describing a normalized Magic: The Gathering single (card record).",
   "type": "object",

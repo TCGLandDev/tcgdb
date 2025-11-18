@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://tcg.land/schemas/products/pkm_normalized_set.schema.json",
+  "$id": "https://tcg.land/schemas/products/pkm_sets.schema.json",
   "title": "PKM Normalized Set",
   "description": "Schema describing a normalized Pokémon set record.",
   "type": "object",

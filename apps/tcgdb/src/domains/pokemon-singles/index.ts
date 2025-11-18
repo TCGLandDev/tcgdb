@@ -4,7 +4,7 @@ import { z } from "zod";
 
 import { getPersistenceClient, type PaginationQuery } from "@/lib/persistence";
 
-export const POKEMON_SINGLES_TABLE = "pkm_normalized_card";
+export const POKEMON_SINGLES_TABLE = "pkm_cards";
 
 export interface PokemonSinglePayload {
 	tcgLandPublicId: string;
