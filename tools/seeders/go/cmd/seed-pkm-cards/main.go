@@ -72,7 +72,7 @@ func main() {
 			}
 			return strings.Join(parts, "-"), nil
 		},
-		Mutate: func(m map[string]any) error {
+		Mutate: func(m map[string]any) ([]string, error) {
 			allowed := map[string]struct{}{
 				"abilities":              {},
 				"ancientTrait":           {},
@@ -106,12 +106,14 @@ func main() {
 				"types":                  {},
 				"weaknesses":             {},
 			}
+			removed := []string{}
 			for k := range m {
 				if _, ok := allowed[k]; !ok {
 					delete(m, k)
+					removed = append(removed, k)
 				}
 			}
-			return nil
+			return removed, nil
 		},
 		Namespace: namespace,
 		Logger:    logger,

@@ -44,10 +44,17 @@ func main() {
 		DatabaseURL: *databaseURL,
 		Concurrency: *concurrency,
 		KeyFunc:     seed.PokemonSetKey,
-		Mutate: func(m map[string]any) error {
-			delete(m, "total")
-			delete(m, "updatedAt")
-			return nil
+		Mutate: func(m map[string]any) ([]string, error) {
+			removed := make([]string, 0, 2)
+			if _, ok := m["total"]; ok {
+				delete(m, "total")
+				removed = append(removed, "total")
+			}
+			if _, ok := m["updatedAt"]; ok {
+				delete(m, "updatedAt")
+				removed = append(removed, "updatedAt")
+			}
+			return removed, nil
 		},
 		Namespace: namespace,
 		Logger:    logger,

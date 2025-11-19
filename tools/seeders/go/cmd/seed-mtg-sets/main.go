@@ -44,19 +44,21 @@ func main() {
 		DatabaseURL: *databaseURL,
 		Concurrency: *concurrency,
 		KeyFunc:     seed.MTGSetKey,
-		Mutate: func(m map[string]any) error {
+		Mutate: func(m map[string]any) ([]string, error) {
 			allowed := map[string]struct{}{
 				"id":               {},
 				"name":             {},
 				"path":             {},
 				"numberCardsInSet": {},
 			}
+			removed := []string{}
 			for k := range m {
 				if _, ok := allowed[k]; !ok {
 					delete(m, k)
+					removed = append(removed, k)
 				}
 			}
-			return nil
+			return removed, nil
 		},
 		Namespace: namespace,
 		Logger:    logger,

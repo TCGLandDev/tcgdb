@@ -10,6 +10,7 @@ import (
 	"os"
 	"runtime"
 	"strings"
+	"sync"
 	"sync/atomic"
 
 	"github.com/google/uuid"
@@ -30,7 +31,7 @@ type Options struct {
 	Concurrency int
 	KeyFunc     KeyFunc
 	SlugFunc    func(map[string]any) (string, error)
-	Mutate      func(map[string]any) error
+	Mutate      func(map[string]any) ([]string, error)
 	Namespace   uuid.UUID
 	Logger      *zap.Logger
 }
@@ -100,6 +101,7 @@ func Run(ctx context.Context, opts Options) error {
 		zap.String("table", opts.TableName),
 		zap.Int64("processed", stats.Processed.Load()),
 		zap.Int64("skipped", stats.Skipped.Load()),
+		zap.Any("ignoredFields", stats.ignoredSnapshot()),
 	)
 
 	return nil
@@ -108,11 +110,31 @@ func Run(ctx context.Context, opts Options) error {
 type statsTracker struct {
 	Processed atomic.Int64
 	Skipped   atomic.Int64
+	ignored   sync.Map // map[string]*atomic.Int64
 }
 
 type job struct {
 	line int
 	raw  []byte
+}
+
+func (s *statsTracker) addIgnored(fields []string) {
+	for _, field := range fields {
+		if field == "" {
+			continue
+		}
+		counterAny, _ := s.ignored.LoadOrStore(field, &atomic.Int64{})
+		counterAny.(*atomic.Int64).Add(1)
+	}
+}
+
+func (s *statsTracker) ignoredSnapshot() map[string]int64 {
+	result := make(map[string]int64)
+	s.ignored.Range(func(key, value any) bool {
+		result[key.(string)] = value.(*atomic.Int64).Load()
+		return true
+	})
+	return result
 }
 
 func streamAndInsert(ctx context.Context, reader io.Reader, repo *persistence.EntityRepository, opts Options) (*statsTracker, error) {
@@ -175,9 +197,11 @@ func handleJob(ctx context.Context, repo *persistence.EntityRepository, j job, s
 
 	rawBytes := j.raw
 	if opts.Mutate != nil {
-		if err := opts.Mutate(payload); err != nil {
+		ignored, err := opts.Mutate(payload)
+		if err != nil {
 			return fmt.Errorf("line %d: mutate payload: %w", j.line, err)
 		}
+		stats.addIgnored(ignored)
 		encoded, err := json.Marshal(payload)
 		if err != nil {
 			return fmt.Errorf("line %d: encode payload: %w", j.line, err)
