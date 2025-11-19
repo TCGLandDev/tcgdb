@@ -29,6 +29,7 @@ type Options struct {
 	DatabaseURL string
 	Concurrency int
 	KeyFunc     KeyFunc
+	SlugFunc    func(map[string]any) (string, error)
 	Mutate      func(map[string]any) error
 	Namespace   uuid.UUID
 	Logger      *zap.Logger
@@ -189,7 +190,14 @@ func handleJob(ctx context.Context, repo *persistence.EntityRepository, j job, s
 		return fmt.Errorf("line %d: derive key: %w", j.line, err)
 	}
 
-	slug, err := buildSlug(key)
+	slugSource := key
+	if opts.SlugFunc != nil {
+		if slugSource, err = opts.SlugFunc(payload); err != nil {
+			return fmt.Errorf("line %d: derive slug: %w", j.line, err)
+		}
+	}
+
+	slug, err := buildSlug(slugSource)
 	if err != nil {
 		return fmt.Errorf("line %d: slugify %q: %w", j.line, key, err)
 	}

@@ -3,8 +3,10 @@ package main
 import (
 	"context"
 	"flag"
+	"fmt"
 	"log"
 	"os"
+	"strings"
 
 	"github.com/google/uuid"
 	"go.uber.org/zap"
@@ -44,8 +46,75 @@ func main() {
 		DatabaseURL: *databaseURL,
 		Concurrency: *concurrency,
 		KeyFunc:     seed.PokemonCardKey,
-		Namespace:   namespace,
-		Logger:      logger,
+		SlugFunc: func(m map[string]any) (string, error) {
+			fields := []string{"tcgLandPublicId", "sId", "cId", "lang", "number", "name", "oracleId"}
+			parts := make([]string, 0, len(fields))
+			for _, key := range fields {
+				if v, ok := m[key].(string); ok && v != "" {
+					parts = append(parts, v)
+				}
+			}
+			if ids, ok := m["tcgPlayerIds"].([]any); ok {
+				idParts := make([]string, 0, len(ids))
+				for _, raw := range ids {
+					switch val := raw.(type) {
+					case float64:
+						idParts = append(idParts, fmt.Sprintf("%d", int(val)))
+					case string:
+						if val != "" {
+							idParts = append(idParts, val)
+						}
+					}
+				}
+				if len(idParts) > 0 {
+					parts = append(parts, strings.Join(idParts, "-"))
+				}
+			}
+			return strings.Join(parts, "-"), nil
+		},
+		Mutate: func(m map[string]any) error {
+			allowed := map[string]struct{}{
+				"abilities":              {},
+				"ancientTrait":           {},
+				"artist":                 {},
+				"attacks":                {},
+				"cId":                    {},
+				"convertedRetreatCost":   {},
+				"evolvesFrom":            {},
+				"evolvesTo":              {},
+				"flavorText":             {},
+				"hp":                     {},
+				"images":                 {},
+				"lang":                   {},
+				"legalities":             {},
+				"level":                  {},
+				"name":                   {},
+				"nationalPokedexNumbers": {},
+				"number":                 {},
+				"oracleId":               {},
+				"path":                   {},
+				"rarity":                 {},
+				"regulationMark":         {},
+				"resistances":            {},
+				"retreatCost":            {},
+				"rules":                  {},
+				"sId":                    {},
+				"subtypes":               {},
+				"supertype":              {},
+				"tcgLandPublicId":        {},
+				"tcgPlayerIds":           {},
+				"types":                  {},
+				"weaknesses":             {},
+			}
+			for k := range m {
+				if _, ok := allowed[k]; !ok {
+					delete(m, k)
+				}
+			}
+			return nil
+		},
+		Namespace: namespace,
+		Logger:    logger,
 	}); err != nil {
 		logger.Fatal("seed failed", zap.Error(err))
 	}
