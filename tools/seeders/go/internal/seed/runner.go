@@ -25,15 +25,16 @@ type KeyFunc func(map[string]any) (string, error)
 
 // Options control how a seed job runs.
 type Options struct {
-	InputPath   string
-	TableName   string
-	DatabaseURL string
-	Concurrency int
-	KeyFunc     KeyFunc
-	SlugFunc    func(map[string]any) (string, error)
-	Mutate      func(map[string]any) ([]string, error)
-	Namespace   uuid.UUID
-	Logger      *zap.Logger
+	InputPath    string
+	TableName    string
+	DatabaseURL  string
+	Concurrency  int
+	KeyFunc      KeyFunc
+	SlugFunc     func(map[string]any) (string, error)
+	Mutate       func(map[string]any) ([]string, error)
+	EntityIDFunc func(map[string]any, string) (uuid.UUID, error)
+	Namespace    uuid.UUID
+	Logger       *zap.Logger
 }
 
 // Run streams the input file and writes each record into the requested table.
@@ -50,7 +51,7 @@ func Run(ctx context.Context, opts Options) error {
 	if opts.KeyFunc == nil {
 		return errors.New("key extractor is required")
 	}
-	if opts.Namespace == uuid.Nil {
+	if opts.EntityIDFunc == nil && opts.Namespace == uuid.Nil {
 		return errors.New("uuid namespace is required")
 	}
 	if opts.Logger == nil {
@@ -226,7 +227,15 @@ func handleJob(ctx context.Context, repo *persistence.EntityRepository, j job, s
 		return fmt.Errorf("line %d: slugify %q: %w", j.line, key, err)
 	}
 
-	entityID := uuid.NewSHA1(opts.Namespace, []byte(key))
+	var entityID uuid.UUID
+	if opts.EntityIDFunc != nil {
+		entityID, err = opts.EntityIDFunc(payload, key)
+		if err != nil {
+			return fmt.Errorf("line %d: derive entity id: %w", j.line, err)
+		}
+	} else {
+		entityID = uuid.NewSHA1(opts.Namespace, []byte(key))
+	}
 
 	_, err = repo.CreateEntity(ctx, persistence.CreateEntityParams{
 		EntityID: entityID,

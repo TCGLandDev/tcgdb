@@ -15,7 +15,10 @@ import (
 	"github.com/zenGate-Global/palmyra-pro-saas/tools/seeders/go/internal/seed"
 )
 
-var namespace = uuid.NewSHA1(uuid.NameSpaceURL, []byte("palmyra-pkm-cards"))
+var (
+	namespace       = uuid.NewSHA1(uuid.NameSpaceURL, []byte("palmyra-pkm-cards"))
+	entityNamespace = uuid.NewSHA1(uuid.NameSpaceURL, []byte("palmyra-pkm-cards-entity"))
+)
 
 func main() {
 	input := flag.String("input", "", "Path to the JSONL file exported from pkmtcgio")
@@ -114,6 +117,13 @@ func main() {
 				}
 			}
 			return removed, nil
+		},
+		EntityIDFunc: func(m map[string]any, _ string) (uuid.UUID, error) {
+			value, ok := m["tcgLandPublicId"].(string)
+			if !ok || value == "" {
+				return uuid.Nil, fmt.Errorf("tcgLandPublicId is required")
+			}
+			return uuid.NewSHA1(entityNamespace, []byte(value)), nil
 		},
 		Namespace: namespace,
 		Logger:    logger,
