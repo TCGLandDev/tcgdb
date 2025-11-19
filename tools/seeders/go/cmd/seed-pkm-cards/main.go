@@ -8,16 +8,10 @@ import (
 	"os"
 	"strings"
 
-	"github.com/google/uuid"
 	"go.uber.org/zap"
 
 	platformlogging "github.com/zenGate-Global/palmyra-pro-saas/platform/go/logging"
 	"github.com/zenGate-Global/palmyra-pro-saas/tools/seeders/go/internal/seed"
-)
-
-var (
-	namespace       = uuid.NewSHA1(uuid.NameSpaceURL, []byte("palmyra-pkm-cards"))
-	entityNamespace = uuid.NewSHA1(uuid.NameSpaceURL, []byte("palmyra-pkm-cards-entity"))
 )
 
 func main() {
@@ -118,15 +112,13 @@ func main() {
 			}
 			return removed, nil
 		},
-		EntityIDFunc: func(m map[string]any, _ string) (uuid.UUID, error) {
-			value, ok := m["tcgLandPublicId"].(string)
-			if !ok || value == "" {
-				return uuid.Nil, fmt.Errorf("tcgLandPublicId is required")
+		EntityIDFunc: func(m map[string]any, key string) (string, error) {
+			if key == "" {
+				return "", fmt.Errorf("tcgLandPublicId is required")
 			}
-			return uuid.NewSHA1(entityNamespace, []byte(value)), nil
+			return key, nil
 		},
-		Namespace: namespace,
-		Logger:    logger,
+		Logger: logger,
 	}); err != nil {
 		logger.Fatal("seed failed", zap.Error(err))
 	}

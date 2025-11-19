@@ -32,7 +32,7 @@ type Options struct {
 	KeyFunc      KeyFunc
 	SlugFunc     func(map[string]any) (string, error)
 	Mutate       func(map[string]any) ([]string, error)
-	EntityIDFunc func(map[string]any, string) (uuid.UUID, error)
+	EntityIDFunc func(map[string]any, string) (string, error)
 	Namespace    uuid.UUID
 	Logger       *zap.Logger
 }
@@ -50,9 +50,6 @@ func Run(ctx context.Context, opts Options) error {
 	}
 	if opts.KeyFunc == nil {
 		return errors.New("key extractor is required")
-	}
-	if opts.EntityIDFunc == nil && opts.Namespace == uuid.Nil {
-		return errors.New("uuid namespace is required")
 	}
 	if opts.Logger == nil {
 		opts.Logger = zap.NewNop()
@@ -227,14 +224,20 @@ func handleJob(ctx context.Context, repo *persistence.EntityRepository, j job, s
 		return fmt.Errorf("line %d: slugify %q: %w", j.line, key, err)
 	}
 
-	var entityID uuid.UUID
+	var entityID string
 	if opts.EntityIDFunc != nil {
 		entityID, err = opts.EntityIDFunc(payload, key)
 		if err != nil {
 			return fmt.Errorf("line %d: derive entity id: %w", j.line, err)
 		}
+	} else if opts.Namespace != uuid.Nil {
+		entityID = uuid.NewSHA1(opts.Namespace, []byte(key)).String()
 	} else {
-		entityID = uuid.NewSHA1(opts.Namespace, []byte(key))
+		entityID = key
+	}
+	entityID, err = sanitizeIdentifier(entityID)
+	if err != nil {
+		return fmt.Errorf("line %d: sanitize entity id: %w", j.line, err)
 	}
 
 	_, err = repo.CreateOrUpdateEntity(ctx, persistence.CreateOrUpdateEntityParams{
@@ -277,4 +280,30 @@ func buildSlug(key string) (string, error) {
 		return "", errors.New("empty slug after normalization")
 	}
 	return persistence.NormalizeSlug(slug)
+}
+
+func sanitizeIdentifier(raw string) (string, error) {
+	trimmed := strings.TrimSpace(raw)
+	if trimmed == "" {
+		return "", errors.New("identifier is required")
+	}
+	var b strings.Builder
+	lastDash := false
+	for _, r := range trimmed {
+		switch {
+		case r >= 'a' && r <= 'z', r >= 'A' && r <= 'Z', r >= '0' && r <= '9', r == '.', r == '-', r == '_', r == ':', r == '!', r == '?':
+			b.WriteRune(r)
+			lastDash = false
+		default:
+			if !lastDash {
+				b.WriteByte('-')
+				lastDash = true
+			}
+		}
+	}
+	sanitized := strings.Trim(b.String(), "-")
+	if sanitized == "" {
+		return "", errors.New("identifier becomes empty after normalization")
+	}
+	return sanitized, nil
 }

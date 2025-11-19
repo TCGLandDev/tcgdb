@@ -6,14 +6,11 @@ import (
 	"log"
 	"os"
 
-	"github.com/google/uuid"
 	"go.uber.org/zap"
 
 	platformlogging "github.com/zenGate-Global/palmyra-pro-saas/platform/go/logging"
 	"github.com/zenGate-Global/palmyra-pro-saas/tools/seeders/go/internal/seed"
 )
-
-var namespace = uuid.NewSHA1(uuid.NameSpaceURL, []byte("palmyra-mtg-sets"))
 
 func main() {
 	input := flag.String("input", "", "Path to the Scryfall sets JSONL file")
@@ -60,8 +57,10 @@ func main() {
 			}
 			return removed, nil
 		},
-		Namespace: namespace,
-		Logger:    logger,
+		EntityIDFunc: func(_ map[string]any, key string) (string, error) {
+			return key, nil
+		},
+		Logger: logger,
 	}); err != nil {
 		logger.Fatal("seed failed", zap.Error(err))
 	}

@@ -19,15 +19,7 @@ func MTGSetKey(data map[string]any) (string, error) {
 }
 
 func MTGCardKey(data map[string]any) (string, error) {
-	setID, err := stringField(data, "sId")
-	if err != nil {
-		return "", err
-	}
-	cardID, err := stringField(data, "cId")
-	if err != nil {
-		return "", err
-	}
-	return fmt.Sprintf("%s-%s", setID, cardID), nil
+	return stringField(data, "tcgLandPublicId")
 }
 
 func stringField(data map[string]any, key string) (string, error) {
