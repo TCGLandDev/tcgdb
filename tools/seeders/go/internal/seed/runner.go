@@ -237,9 +237,9 @@ func handleJob(ctx context.Context, repo *persistence.EntityRepository, j job, s
 		entityID = uuid.NewSHA1(opts.Namespace, []byte(key))
 	}
 
-	_, err = repo.CreateEntity(ctx, persistence.CreateEntityParams{
+	_, err = repo.CreateOrUpdateEntity(ctx, persistence.CreateOrUpdateEntityParams{
 		EntityID: entityID,
-		Slug:     slug,
+		Slug:     &slug,
 		Payload:  persistence.SchemaDefinition(rawBytes),
 	})
 	switch {
