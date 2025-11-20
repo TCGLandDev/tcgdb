@@ -235,7 +235,7 @@ func handleJob(ctx context.Context, repo *persistence.EntityRepository, j job, s
 	} else {
 		entityID = key
 	}
-	entityID, err = sanitizeIdentifier(entityID)
+	entityID, err = persistence.NormalizeEntityIdentifier(entityID)
 	if err != nil {
 		return fmt.Errorf("line %d: sanitize entity id: %w", j.line, err)
 	}
@@ -280,30 +280,4 @@ func buildSlug(key string) (string, error) {
 		return "", errors.New("empty slug after normalization")
 	}
 	return persistence.NormalizeSlug(slug)
-}
-
-func sanitizeIdentifier(raw string) (string, error) {
-	trimmed := strings.TrimSpace(raw)
-	if trimmed == "" {
-		return "", errors.New("identifier is required")
-	}
-	var b strings.Builder
-	lastDash := false
-	for _, r := range trimmed {
-		switch {
-		case r >= 'a' && r <= 'z', r >= 'A' && r <= 'Z', r >= '0' && r <= '9', r == '.', r == '-', r == '_', r == ':', r == '!', r == '?':
-			b.WriteRune(r)
-			lastDash = false
-		default:
-			if !lastDash {
-				b.WriteByte('-')
-				lastDash = true
-			}
-		}
-	}
-	sanitized := strings.Trim(b.String(), "-")
-	if sanitized == "" {
-		return "", errors.New("identifier becomes empty after normalization")
-	}
-	return sanitized, nil
 }
